@@ -6,141 +6,424 @@
     <title>Pasta Corner</title>
     <style>
         body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-}
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
+            background: linear-gradient(135deg, #ffe0b2, #ffcc80);
+            color: #333;
+        }
 
-header {
-  background-color: #fbb917;
-  color: #fff;
-  padding: 0 1rem;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-h1 {
-  margin: 0;
-  padding-top: 2rem;
-  
-}
-nav {
-  margin: 0;
-  padding: 0 2rem;
-}
-nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
+        header {
+            background-color: #fbb917;
+            color: #fff;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
 
-nav ul li {
-  margin:0 1rem;
-  padding: 0
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
 
-}
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
 
-a {
-  text-decoration: none;
-  color: #fff;
-  padding: 0 10px;
-}
+        nav ul li {
+            margin: 0 1rem;
+        }
 
-section {
-  padding: 6rem 1rem 2rem;
-  text-align: center;
-}
+        a {
+            text-decoration: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
 
-#home {
-  background: url('Photos/Pasta\ on\ a\ wooden\ table.jpg') no-repeat center center/cover;
-  color: #fff;
-  font-size: larger;
-  font-weight: bolder;
-  height: 60vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+        a:hover {
+            background-color: #f9a825;
+        }
 
-#menu {
-  background-color: #e2e2e2;
-}
+        section {
+            padding: 8rem 1rem 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease; /* Transition time set to 0.5s */
+        }
 
-.gallery {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-}
+        section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.gallery img {
-  width: 300px;
-  height: auto;
-  border-radius: 10px;
-}
+        #home {
+            background: url('Photos/Pasta\ on\ a\ wooden\ table.jpg') no-repeat center center/cover;
+            color: #fff;
+            font-size: larger;
+            font-weight: bolder;
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease-in-out;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
 
-#order {
-  background-color: #f4f4f4;
-  display: none;
-}
+        #about {
+            background-color: #f0f0f0;
+            padding: 5rem 2rem;
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
 
-.food-item {
-  margin: 1rem 0;
-}
+        #about h2 {
+            text-align: center;
+            color: #fbb917;
+            margin-bottom: 2rem;
+        }
 
-.gallery button {
-  margin-top: 0.5rem;
-  padding: 0.5rem 1rem;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-}
+        #about p {
+            margin-bottom: 1.5rem;
+        }
 
-.gallery button:hover {
-  background-color: #555;
-}
-.tagline {
-    font-style: italic;
-}
+        #about strong {
+            font-weight: bold;
+            color: #333;
+        }
 
-#order-form {
-    display: none;
-    margin-top: 2rem;
-}
-#order-summary {
-    margin-top: 1rem;
-}
-#success-message {
-    display: none;
-    margin-top: 1rem;
-    color: green;
-    font-weight: bold;
-}
-figcaption {
-  padding-top: 8px;
-}
+        #about em {
+            font-style: italic;
+            color: #555;
+        }
+
+        #menu {
+            background-color: #f5f5f5;
+            padding: 3rem 1rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        .gallery figure {
+            margin: 0;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery figure:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        figcaption {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .gallery button {
+            margin-top: 1rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .gallery button:hover {
+            background-color: #555;
+        }
+
+        .gallery button.order-clicked {
+            background-color: #888;
+        }
+
+        .tagline {
+            font-style: italic;
+            font-size: 1.5rem;
+        }
+
+        #order {
+            background-color: #f0f0f0;
+            padding: 3rem 1rem;
+            border-top: 2px solid #ddd;
+        }
+
+        #order-form {
+            max-width: 500px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        #order-form h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        #order-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        #order-form input {
+            width: calc(100% - 22px);
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #order-form button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #fbb917;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #order-form button:hover {
+            background-color: #f9a825;
+        }
+
+        #order-summary {
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        #success-message {
+            margin-top: 1rem;
+            color: green;
+            font-weight: bold;
+            display: none;
+        }
+
+        #experience {
+            background-color: #e8f5e9;
+            padding: 5rem 2rem;
+            text-align: center;
+            line-height: 1.6;
+            border-top: 1px solid #c8e6c9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #experience h2 {
+            color: #43a047;
+            margin-bottom: 2rem;
+        }
+
+        #experience p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        #reviews {
+            background-color: #f9f9f9;
+            padding: 5rem 2rem;
+            text-align: center;
+            line-height: 1.6;
+            border-top: 1px solid #eee;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .review {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+
+        #social-media {
+            padding: 5rem 2rem;
+            text-align: center;
+            line-height: 1.6;
+            background-color: #f0f8ff;
+            border-top: 1px solid #e0f2fe;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header, nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Accessibility (Basic Example) */
+        a:focus, button:focus, input:focus {
+            outline: 2px solid #fbb917;
+        }
+
+        /* Reservation System */
+        #reservation {
+            background-color: #f0f0f0;
+            padding: 4rem 2rem;
+            text-align: center;
+            line-height: 1.6;
+            border-top: 1px solid #ddd;
+        }
+
+        #reservation h2 {
+            margin-bottom: 2rem;
+            color: #fbb917;
+        }
+
+        #reservation-form {
+            max-width: 500px;
+            margin: 2rem auto;
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: grid;
+            grid-gap: 1rem;
+            grid-template-columns: 1fr 2fr;
+            align-items: center;
+        }
+
+        #reservation-form label {
+            text-align: right;
+            padding-right: 1rem;
+            color: #555;
+        }
+
+        #reservation-form input,
+        #reservation-form select {
+            width: calc(100% - 2px);
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #reservation-form button {
+            grid-column: 1 / 3;
+            width: 100%;
+            padding: 1rem;
+            background-color: #fbb917;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #reservation-form button:hover {
+            background-color: #f9a825;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fbb917;
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
+
 <body>
     <header>
         <h1><a href="#home">Pasta Corner</a></h1>
-        <nav> 
-            <a href="#home">Home</a>
-            <a href="#menu">Menu</a>
-            <a href="#menu">Order</a>
-            <a href="#contact">Contact</a>    
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#order">Order</a></li>
+            </ul>
         </nav>
     </header>
 
     <section id="home">
         <h2>Welcome to Pasta Corner</h2>
         <p class="tagline">Enjoy the best pasta in town!</p>
+    </section>
+
+    <section id="about">
+        <h2>Our Story</h2>
+        <p>At Pasta Corner, we're passionate about bringing authentic Italian flavors to your table. Our journey began with a simple love for fresh pasta and traditional recipes. We believe in using only the finest ingredients, sourced locally whenever possible, to create dishes that are both delicious and memorable. Every plate is crafted with care, reflecting our commitment to quality and taste. Come experience the warmth of our kitchen and the joy of homemade pasta.</p>
     </section>
 
     <section id="menu">
@@ -155,1196 +438,142 @@ figcaption {
             <figure>
                 <img src="Photos/Spaghetti Bolognese.jpg" alt="Spaghetti Bolognese">
                 <figcaption>Spaghetti Bolognese</figcaption>
-                <FIgcaption>ZMW 120.94</FIgcaption>
+                <figcaption>ZMW 120.94</figcaption>
                 <button onclick="orderItem('Spaghetti Bolognese')">Order</button>
             </figure>
             <figure>
                 <img src="Photos/Lasagna.jpg" alt="Lasagna">
                 <figcaption>Lasagna</figcaption>
-                <FIgcaption>ZMW 99.45</FIgcaption>
+                <figcaption>ZMW 99.45</figcaption>
                 <button onclick="orderItem('Lasagna')">Order</button>
             </figure>
             <figure>
                 <img src="Photos/Noodles.jpg" alt="A bowl of noodles">
                 <figcaption>Noodles</figcaption>
-                <FIgcaption>ZMW 70.50</FIgcaption>
+                <figcaption>ZMW 70.50</figcaption>
                 <button onclick="orderItem('Noodles')">Order</button>
             </figure>
             <figure>
                 <img src="Photos/Pasta on a wooden table.jpg" alt="Macarroni">
                 <figcaption>Macarroni</figcaption>
-                <FIgcaption>ZMW 80.00</FIgcaption>
+                <figcaption>ZMW 80.00</figcaption>
                 <button onclick="orderItem('Macaroni')">Order</button>
-            </figure>  
+            </figure>
         </div>
     </section>
 
     <section id="order">
         <div id="order-summary"></div>
-            <form id="order-form">
-                <h3>Enter Your Information</h3>
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required><br><br>
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required><br><br>
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" required><br><br>
-                <button type="submit">Submit Order</button>
-            </form>
-    
-            <div id="success-message">Thank you! Your order has been successfully placed.</div>
+        <form id="order-form">
+            <h3>Enter Your Information</h3>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required><br><br>
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+            <button type="submit">Submit Order</button>
+        </form>
+        <div id="success-message">Thank you! Your order has been successfully placed.</div>
     </section>
 
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>Email: info@pastacorner.com</p>
-        <p>Phone: 260-970-1111</p>
+    <section id="experience">
+        <h2>A Culinary Experience Beyond the Plate</h2>
+        <p>At Pasta Corner, we believe that dining is more than just about food; it's about creating memorable experiences. We've designed our space to be a warm and inviting haven, where the aroma of fresh herbs and simmering sauces fills the air, and the sounds of laughter and conversation create a vibrant atmosphere.</p>
+        <p>Our open kitchen concept allows you to witness the artistry of our chefs as they transform simple ingredients into culinary masterpieces. We source our produce from local farms, ensuring that every dish is not only delicious but also supports our community.</p>
+        <p>But the experience doesn't end with the food. We host <span class="highlight">weekly pasta-making workshops</span>, where you can learn the secrets of crafting perfect pasta from scratch. Join us for a lively evening filled with flour, laughter, and the joy of creating something truly special. We also feature <span class="highlight">live acoustic music on Friday nights</span>, providing the perfect soundtrack for a relaxed and enjoyable dinner.</p>
+        <p>We invite you to come and savor not just the taste of our pasta, but the entire Pasta Corner experience – a celebration of food, community, and the simple pleasures of life.</p>
     </section>
+
+    <section id="reservation">
+        <h2>Make a Reservation</h2>
+        <form id="reservation-form">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="guests">Guests:</label>
+            <input type="number" id="guests" name="guests" min="1" required>
+
+            <label for="occasion">Occasion:</label>
+            <select id="occasion" name="occasion">
+                <option value="none">None</option>
+                <option value="birthday">Birthday</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="other">Other</option>
+            </select>
+
+            <label for="requests">Special Requests:</label>
+            <input type="text" id="requests" name="requests">
+
+            <button type="submit">Reserve Table</button>
+        </form>
+    </section>
+
+    <section id="reviews">
+        <h2>What Our Customers Say</h2>
+        <div class="review">
+            <p>"The lasagna was absolutely divine! Best pasta I've ever had."</p>
+            <p>- Jane D.</p>
+        </div>
+        <div class="review">
+            <p>"Great atmosphere and friendly staff. Highly recommend the spaghetti bolognese."</p>
+            <p>- Mark S.</p>
+        </div>
+    </section>
+
+    <section id="social-media">
+        <h2>Connect With Us</h2>
+        <p>Follow us on our social media channels for the latest updates, promotions, and delicious pasta photos!</p>
+        <div style="display: flex; justify-content: center; gap: 20px;">
+            <a href="#" target="_blank">Facebook</a>
+            <a href="#" target="_blank">Twitter</a>
+            <a href="#" target="_blank">Instagram</a>
+        </div>
+    </section>
+
+    <footer>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <div>
+                <h3>Contact Us</h3>
+                <p>Email: <a href="mailto:info@pastacorner.com">info@pastacorner.com</a></p>
+                <p>Phone: 260-970-1111</p>
+                <p>Address: [Your Restaurant Address]</p>
+            </div>
+            <div>
+                <h3>Social Media</h3>
+                <div style="display: flex; gap: 10px;">
+                    <a href="#" target="_blank">Facebook</a>
+                    <a href="#" target="_blank">Twitter</a>
+                    <a href="#" target="_blank">Instagram</a>
+                </div>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="#home">Home</a></p>
+                <p><a href="#menu">Menu</a></p>
+                <p><a href="#reservation">Reservations</a></p>
+            </div>
+        </div>
+        <p>&copy; 2025 Pasta Corner. All rights reserved.</p>
+    </footer>
+
     <script>
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         const selectedItems = [];
 
         function orderItem(item) {
             selectedItems.push(item);
             document.getElementById('order-summary').innerText = 'Selected items: ' + selectedItems.join(', ');
             document.getElementById('order').style.display = 'block';
-            document.getElementById('order-form').style.display = 'block';   
+            document.getElementById('order-form').style.display = 'block';
+            this.event.target.classList.add('order-clicked');
+            setTimeout(() => {
+                this.event.target.classList.remove('order-clicked');
+            }, 500);
         }
+
         document.getElementById('order-form').addEventListener('submit', function(event) {
             event.preventDefault();
             document.getElementById('order-form').reset();
@@ -1352,9 +581,22 @@ figcaption {
             setTimeout(function() {
                 document.getElementById('success-message').style.display = 'none';
                 document.getElementById('order').style.display = 'none';
-            }, 15000); 
+            }, 15000);
         });
-    </script>
 
+        function revealSections() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealSections);
+        revealSections();
+    </script>
 </body>
 </html>

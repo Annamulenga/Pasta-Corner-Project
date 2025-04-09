@@ -2,7 +2,7 @@
 
 A website for a resturant built using HTML, CSS and JavaScript
 
-##Technologies Used
+#Technologies Used
 
 -HTML
 -CSS
